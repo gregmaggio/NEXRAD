@@ -1,0 +1,364 @@
+{
+	"swagger" : "2.0",
+	"info" : {
+		"description" : "Hurricane API",
+		"version" : "1.0",
+		"title" : "Hurricane Service",
+		"license" : {
+			"name" : "Apache License Version 2.0"
+		}
+	},
+	"host" : "localhost:8081",
+	"basePath" : "/NEXRAD",
+	"tags" : [{
+			"name" : "nexrad-controller",
+			"description" : "NEXRAD Controller"
+		}
+	],
+	"paths" : {
+		"/api/basins" : {
+			"get" : {
+				"tags" : ["nexrad-controller"],
+				"summary" : "basins",
+				"operationId" : "basins",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/BasinDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/basin/{basin}/years" : {
+			"get" : {
+				"tags" : ["hurricane-controller"],
+				"summary" : "years",
+				"operationId" : "years",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "basin",
+						"in" : "path",
+						"description" : "basin",
+						"required" : true,
+						"type" : "string"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"type" : "integer"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/storm/{basin}/{year}" : {
+			"get" : {
+				"tags" : ["hurricane-controller"],
+				"summary" : "storms",
+				"operationId" : "storms",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "basin",
+						"in" : "path",
+						"description" : "basin",
+						"required" : true,
+						"type" : "string"
+					},{
+						"name" : "year",
+						"in" : "path",
+						"description" : "year",
+						"required" : true,
+						"type" : "integer"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/StormDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/storm/{basin}/{year}/{stormNo}" : {
+			"get" : {
+				"tags" : ["hurricane-controller"],
+				"summary" : "stormTracksByStormNo",
+				"operationId" : "stormTracksByStormNo",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "basin",
+						"in" : "path",
+						"description" : "basin",
+						"required" : true,
+						"type" : "string"
+					},{
+						"name" : "year",
+						"in" : "path",
+						"description" : "year",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "stormNo",
+						"in" : "path",
+						"description" : "stormNo",
+						"required" : true,
+						"type" : "integer"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/StormTrackDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		},
+		"/api/storm/{basin}/{startYear}/{startMonth}/{startDay}/{endYear}/{endMonth}/{endDay}" : {
+			"get" : {
+				"tags" : ["hurricane-controller"],
+				"summary" : "stormTracksByStormNo",
+				"operationId" : "stormTracksByStormNo",
+				"consumes" : ["application/json"],
+				"produces" : ["*/*"],
+				"parameters" : [{
+						"name" : "basin",
+						"in" : "path",
+						"description" : "basin",
+						"required" : true,
+						"type" : "string"
+					},{
+						"name" : "startYear",
+						"in" : "path",
+						"description" : "startYear",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "startMonth",
+						"in" : "path",
+						"description" : "startMonth",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "startDay",
+						"in" : "path",
+						"description" : "startDay",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "endYear",
+						"in" : "path",
+						"description" : "endYear",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "endMonth",
+						"in" : "path",
+						"description" : "endMonth",
+						"required" : true,
+						"type" : "integer"
+					},{
+						"name" : "endDay",
+						"in" : "path",
+						"description" : "endDay",
+						"required" : true,
+						"type" : "integer"
+					}
+				],
+				"responses" : {
+					"200" : {
+						"description" : "OK",
+						"schema" : {
+							"type" : "array",
+							"items" : {
+								"$ref" : "#/definitions/StormTrackDTO"
+							}
+						}
+					},
+					"401" : {
+						"description" : "Unauthorized"
+					},
+					"403" : {
+						"description" : "Forbidden"
+					},
+					"404" : {
+						"description" : "Not Found"
+					}
+				}
+			}
+		}
+	},
+	"definitions" : {
+		"BasinDTO" : {
+			"type" : "object",
+			"properties" : {
+				"name" : {
+					"type" : "string"
+				},
+				"description" : {
+					"type" : "string"
+				},
+				"centerX" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"centerY" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"zoom" : {
+					"type" : "number",
+					"format" : "integer"
+				}
+			}
+		},
+		"StormDTO" : {
+			"type" : "object",
+			"properties" : {
+				"stormNo" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"stormName" : {
+					"type" : "string"
+				},
+				"tracks" : {
+					"type" : "number",
+					"format" : "integer"
+				}
+			}
+		},
+		"StormTrackDTO" : {
+			"type" : "object",
+			"properties" : {
+				"stormNo" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"stormName" : {
+					"type" : "string"
+				},
+				"trackNo" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"year" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"month" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"day" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"hours" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"minutes" : {
+					"type" : "number",
+					"format" : "integer"
+				},
+				"status" : {
+					"type" : "string"
+				},
+				"recordIdentifier" : {
+					"type" : "string"
+				},
+				"maxWindSpeed" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"minPressure" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"latitude" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"latitudeHemisphere" : {
+					"type" : "string"
+				},
+				"longitude" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"longitudeHemisphere" : {
+					"type" : "string"
+				},
+				"x" : {
+					"type" : "number",
+					"format" : "double"
+				},
+				"y" : {
+					"type" : "number",
+					"format" : "double"
+				}
+			}
+		}
+	}
+}

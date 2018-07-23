@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="rollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="C:/Temp/Logs/NEXRAD/nexrad.txt"/>
+		<param name="immediateFlush" value="true"/>
+		<param name="append" value="true"/>
+		<param name="datePattern" value="'.'yyyy-MM-dd "/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
+		</layout>
+	</appender>
+	<NoSql name="databaseAppender">
+		<MongoDb databaseName="local" collectionName="exception" server="localhost" />
+		<filters>
+		    <MarkerFilter marker="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+		</filters>
+	</NoSql>
+	<logger name="org.springframework">
+    	<level value="warn"/>
+	</logger>
+	<root> 
+		<priority value ="debug" /> 
+		<appender-ref ref="rollingFile" />
+		<appender-ref ref="databaseAppender" />
+	</root>
+</log4j:configuration>
